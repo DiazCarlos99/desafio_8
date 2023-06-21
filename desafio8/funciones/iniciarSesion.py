@@ -1,2 +1,0 @@
-def iniciarSesion():
-    return False
