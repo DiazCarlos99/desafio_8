@@ -16,7 +16,8 @@ class Usuario:
 
     def get_username(self):
          return self.__username
-
+    def get_id(self):
+        return self.__id
     def login(self, username, contraseña):
             if self.__username == username and self.__contraseña == contraseña:
                 self.__online = True

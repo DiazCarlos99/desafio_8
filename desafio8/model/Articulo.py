@@ -13,5 +13,15 @@ class Articulo:
     
     def get_id(self):
         return self.__id
+    def get_idUsuario(self):
+        return self.__id_usuario
     def get_titulo(self):
         return self.__titulo
+    def get_resumen(self):
+        return self.__resumen
+    def get_contenido(self):
+        return self.__contenido
+    def get_fechaPublicacion(self):
+        return self.__fecha_publicacion
+    def get_estado(self):
+        return self.__estado

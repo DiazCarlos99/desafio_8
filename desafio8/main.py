@@ -3,7 +3,7 @@ from funciones.registro import registrarColaborador, registrarPublico, iniciarSe
 
 def menuInicial():
     while True:
-        print('********** Menu Inicial ************')
+        print('********** Menu Inicio ************')
         print('1- registrar usuario')
         print('2- Iniciar sesión')
         print('3- Salir')
