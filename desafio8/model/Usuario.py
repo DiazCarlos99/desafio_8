@@ -1,4 +1,6 @@
 import datetime
+from model.Comentario import Comentario
+from model.Articulo import Articulo
 
 class Usuario:
     def __init__(self, id, nombre, apellido, telefono, username, email, contraseña):
@@ -38,10 +40,13 @@ class Publico(Usuario):
     def __init__(self, id, nombre, apellido, telefono, username, email, contraseña):
         super().__init__(id, nombre, apellido, telefono, username, email, contraseña)
         self.__es_publico = True
-
-    def comentar(self, comentario):
-        if self.__online:
-            return True
+    def get_esPublico(self):
+        return self.__es_publico
+    def comentar(self, idArticulo, idComentario):
+        contenido = input(f'Ingrese comentario: ')
+        idUsuario = self.get_id()
+        comentario = Comentario(idComentario, idArticulo, idUsuario, contenido)
+        return comentario
         
     def registro(self):
         super().registro()
@@ -51,15 +56,25 @@ class Colaborador(Usuario):
     def __init__(self, id, nombre, apellido, telefono, username, email, contraseña):
         super().__init__(id, nombre, apellido, telefono, username, email, contraseña)
         self.__es_colaborador = True
+    def get_esColaborador(self):
+        return self.__es_colaborador
     
-    def publicar(self, articulo):
-        if self.__online:
-            return True
-
+    def publicar(self, idArticulo):
+        print('')
+        titulo = input(f'Ingrese un titulo: ')
+        resumen = input(f'Resumen del articulo: ')
+        contenido = input(f'Contenido: ')
+        imagen = input(f'Imagen: ')
+        idUsuario = self.get_id()
+        articulo = Articulo(idArticulo, idUsuario, titulo, resumen, contenido, imagen)
+        return articulo
+    
     def registro(self):
         super().registro()
         print(f'funcion: Colaborador')
 
-    def comentar(self, comentario):
-        if self.__online:
-            return True
+    def comentar(self, idArticulo, idComentario):
+        contenido = input(f'Ingrese comentario: ')
+        idUsuario = self.get_id()
+        comentario = Comentario(idComentario, idArticulo, idUsuario, contenido)
+        return comentario
