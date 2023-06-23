@@ -1,21 +1,21 @@
 from model.Usuario import Colaborador, Publico
 from model.Comentario import Comentario
-from module.usuarios import usuarios 
+from module.usuarios import usuarios
 from module.articulos import articulos
 from module.comentarios import comentarios
 
 
 
 
-
+#controlado
 def registrarColaborador():
     print(f'\n ******** Registre su usuario aqui *******')
     id = len(usuarios) + 1
     nombre = input('Ingrese un nombre: ')
     apellido = input('Ingrese un apellido: ')
     telefono = input('Ingrese un telefono: ')
-    username = input('Ingrese un nombre de usuario: ')
     email = input('Ingrese un email: ')
+    username = input('Ingrese un nombre de usuario: ')
     password = input('Ingrese una contraseña: ')
 
     obj1 = Colaborador(id, nombre, apellido, telefono, username, email, password)
@@ -24,18 +24,15 @@ def registrarColaborador():
     obj1.registro()
     print('')
     print('')
-    
-
-    
-
+#controlado
 def registrarPublico():
     print(f'\n ******** Registre su usuario aqui *******')
     id = len(usuarios) + 1
     nombre = input('Ingrese un nombre: ')
     apellido = input('Ingrese un apellido: ')
     telefono = input('Ingrese un telefono: ')
-    username = input('Ingrese un nombre de usuario: ')
     email = input('Ingrese un email: ')
+    username = input('Ingrese un nombre de usuario: ')
     password = input('Ingrese una contraseña: ')
 
     obj1 = Publico(id, nombre, apellido, telefono, username, email, password)
@@ -58,30 +55,30 @@ def iniciarSesion():
         print('No hay usuarios para iniciar sesión')
         print('Por favor Registrese para iniciar sesión')
         print('')
-    
     usuarioActivo = None
     for usuario in usuarios:
         if usuario.get_username() == user:
             usuarioActivo = usuario
             break
-    
     if usuarioActivo is not None:
         verificar = usuarioActivo.login(user, password)
         if verificar == True:
             menuUsuaurio(usuarioActivo)
     else:
         print(f'Usuario y/o Contraseña invalidos.')
-        iniciarSesion()
 
 #######################En esta seccion vamos a verificar a que instancia pertenece el usuario logueado#####
+def mensajeBienvenida(usuarioActivo):
+    print('')
+    print('******* Haz iniciado sesion con exito *******')
+    print('')
+    print(f'Hola {usuarioActivo.get_username()}')
+    print('')
 
-def menuUsuaurio(usuarioActivo):
-        print('')
-        print('******* Haz iniciado sesion con exito *******')
-        print('')
-        print(f'Hola {usuarioActivo.get_username()}')
+def menuUsuaurio(usuarioActivo, yaInicio = False):
+        if yaInicio == False:
+            mensajeBienvenida(usuarioActivo)
         while True:
-            print('')
             if isinstance(usuarioActivo, Publico):
                 print(f'\n ******** Menu principal de usuario Publico *******')
                 print('')
@@ -91,7 +88,7 @@ def menuUsuaurio(usuarioActivo):
                 opcion = int(input(f'Ingrese una opción: '))
 
                 if opcion == 1:
-                    articulosPublicados(usuarioActivo)  
+                    articulosPublicados(usuarioActivo)
                 elif opcion == 2:
                     mostrarComentarios(usuarioActivo)
                 else:
@@ -107,7 +104,7 @@ def menuUsuaurio(usuarioActivo):
                 opcion = int(input(f'Ingrese una opción: '))
                 idUsuario = usuarioActivo.get_id()
                 if opcion == 1:
-                    articulosPublicados(usuarioActivo)  
+                    articulosPublicados(usuarioActivo)
                 elif opcion == 2:
                     crearArticulo(usuarioActivo)
                 elif opcion == 3:
@@ -115,47 +112,37 @@ def menuUsuaurio(usuarioActivo):
                     print('***********************')
                     print('Tus Articulos creados')
                     print('***********************')
-                    misArticulos(idUsuario)
+                    articulosPublicados(usuarioActivo, soloMisArticulos=True)
                 elif opcion == 4:
                     mostrarComentarios(usuarioActivo)
-                else:
+                elif opcion >=5:
                     break
-                
 
 ##### En esta seccion vamos a mostrar los articulos publicados
-def articulosPublicados(usuarioActivo):
-    for articulo in articulos:
-        print('')
-        print(f'****** Articulo: {articulo.get_id()} ********')
-        print('')
-        print(f'Titulo: {articulo.get_titulo()}')
-        print(f'Resumen: {articulo.get_resumen()}')
-        idArticulo = articulo.get_id()
-        for comentario in comentarios:
-            if comentario.get_idArticulo() == articulo.get_id():
-                comentarioId = []
-                comentarioId.append(comentario)
-                cantidadComentario = len(comentarioId)
-                print(f'Comentarios: {cantidadComentario}')
-    seleccionarArticulo(usuarioActivo)
+def articulosPublicados(usuarioActivo, soloMisArticulos=False):
+    listaArticulos = []
 
-def misArticulos(idUsuario):
     for articulo in articulos:
-        if articulo.get_idUsuario() == idUsuario:
-            print('')
-            print(f'****** Articulo: {articulo.get_id()} ********')
-            print('')
-            print(f'Titulo: {articulo.get_titulo()}')
-            print(f'Resumen: {articulo.get_resumen()}')
-            idArticulo = articulo.get_id()
-            for comentario in comentarios:
-                if comentario.get_idArticulo() == articulo.get_id():
-                    comentarioId = []
-                    comentarioId.append(comentario)
-                    cantidadComentario = len(comentarioId)
-                    print(f'Comentarios: {cantidadComentario}')
-        
-    
+        if not soloMisArticulos or articulo.get_idUsuario() == usuarioActivo.get_id():
+            listaArticulos.append(articulo)
+
+    for listaArticulo in listaArticulos:
+        contador = 0  # Reiniciar el contador de comentarios para cada artículo
+        print('')
+        print(f'****** Articulo: {listaArticulo.get_id()} ********')
+        print('')
+        print(f'Titulo: {listaArticulo.get_titulo()}')
+        print(f'Resumen: {listaArticulo.get_resumen()}')
+        print('')
+
+        for comentario in comentarios:
+            if comentario.get_idArticulo() == listaArticulo.get_id():
+                contador += 1
+
+        print(f'Comentarios: {contador}')
+        print('')
+
+    seleccionarArticulo(usuarioActivo)
 
 def seleccionarArticulo(usuarioActivo):
     print('')
@@ -169,9 +156,10 @@ def seleccionarArticulo(usuarioActivo):
         id = int(input('¿Que articulo quieres selccionar?: '))
         mostrarArticulo(id)
         crearComentario(usuarioActivo, id)
+    elif opcion >= 2:
+        menuUsuaurio(usuarioActivo, True)
 
 def mostrarArticulo(id):
-    
     for articulo in articulos:
             if articulo.get_id() == id:
                 for usuario in usuarios:
@@ -184,12 +172,15 @@ def mostrarArticulo(id):
                 print(f'Contenido: {articulo.get_contenido()}')
                 print(f'Fecha de publicacion: {articulo.get_fechaPublicacion()}')
                 print('')
-                print(f'Estado: {articulo.get_estado()}')
+                estado =  articulo.get_estado()
+                if estado:
+                    print(f'Estado: Activo')
+                else:
+                    print(f'Estado: Inactivo')
                 for comentario in comentarios:
                     print('')
                     if comentario.get_idArticulo() == id:
                         for usuario in usuarios:
-                            
                             if usuario.get_id() == comentario.get_idUsuario():
                                 print('')
                                 print(f'Comentario realizado por {usuario.get_username()}')
@@ -219,7 +210,6 @@ def crearComentario(usuarioActivo, idArticulo):
         comentario = usuarioActivo.comentar(idArticulo, idComentario)
         comentarios.append(comentario)
         mostrarArticulo(idArticulo)
-        
 
 #mostrar comentarios
 def mostrarComentarios(usuarioActivo):
