@@ -1,5 +1,9 @@
-from model.Usuario import Publico, Colaborador 
+from model.modelos import Publico, Colaborador, Comentario, Articulo
+
+
 usuarios = []
+comentarios = []
+articulos = []
 
 usuario1 = Colaborador(1, "Usuario1", "Apellido1", "123456789", "usuario1", "usuario1@example.com", "contraseña1")
 usuario2 = Colaborador(2, "Usuario2", "Apellido2", "987654321", "usuario2", "usuario2@example.com", "contraseña2")
@@ -12,3 +16,19 @@ usuarios.append(usuario2)
 usuarios.append(usuario3)
 usuarios.append(usuario4)
 usuarios.append(usuario5)
+
+
+
+comentario1 = Comentario(1, 1, 1, "Contenido del comentario 1")
+comentario2 = Comentario(2, 2, 2, "Contenido del comentario 2")
+
+comentarios.append(comentario1)
+comentarios.append(comentario2)
+
+
+
+articulo1 = Articulo(1, 1, "Título del artículo 1", "Resumen del artículo 1", "Contenido del artículo 1", "imagen1.jpg")
+articulo2 = Articulo(2, 2, "Título del artículo 2", "Resumen del artículo 2", "Contenido del artículo 2", "imagen2.jpg")
+
+articulos.append(articulo1)
+articulos.append(articulo2) 

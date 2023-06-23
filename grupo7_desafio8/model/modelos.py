@@ -1,6 +1,4 @@
 import datetime
-from model.Comentario import Comentario
-from model.Articulo import Articulo
 
 class Usuario:
     def __init__(self, id, nombre, apellido, telefono, username, email, contraseña):
@@ -80,3 +78,51 @@ class Colaborador(Usuario):
         idUsuario = self.get_id()
         comentario = Comentario(idComentario, idArticulo, idUsuario, contenido)
         return comentario
+
+class Comentario:
+    def __init__(self, id, id_articulo, id_usuario, contenido,):
+        self.__id = id
+        self.__id_articulo = id_articulo
+        self.__id_usuario = id_usuario
+        self.__contenido = contenido
+        self.__fecha_hora = datetime.datetime.now()
+        self.__estado = True
+    def get_id(self):
+        return self.__id
+    def get_idArticulo(self):
+        return self.__id_articulo
+    def get_idUsuario(self):
+        return self.__id_usuario
+    def get_contenido(self):
+        return self.__contenido
+    def get_fechaHora(self):
+        return self.__fecha_hora
+    def get_estado(self):
+        return self.__estado
+
+class Articulo:
+    def __init__(self,id, id_usuario, titulo, resumen, contenido, imagen):
+        self.__id = id
+        self.__id_usuario = id_usuario
+        self.__titulo = titulo
+        self.__resumen = resumen
+        self.__contenido = contenido
+        self.__imagen = imagen
+        self.__estado = True
+        self.__fecha_publicacion = datetime.datetime.now()
+    def get_id(self):
+        return self.__id
+    def get_idUsuario(self):
+        return self.__id_usuario
+    def get_imagen(self):
+        return self.__imagen
+    def get_titulo(self):
+        return self.__titulo
+    def get_resumen(self):
+        return self.__resumen
+    def get_contenido(self):
+        return self.__contenido
+    def get_fechaPublicacion(self):
+        return self.__fecha_publicacion
+    def get_estado(self):
+        return self.__estado

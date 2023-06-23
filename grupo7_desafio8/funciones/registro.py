@@ -1,8 +1,6 @@
-from model.Usuario import Colaborador, Publico
-from model.Comentario import Comentario
-from module.usuarios import usuarios
-from module.articulos import articulos
-from module.comentarios import comentarios
+from model.modelos import Colaborador, Publico
+from module.contenidos import usuarios, articulos, comentarios
+
 
 
 
@@ -170,6 +168,7 @@ def mostrarArticulo(id):
                         print('')
                 print(f'Titulo: {articulo.get_titulo()}')
                 print(f'Contenido: {articulo.get_contenido()}')
+                print(f'Imagen: {articulo.get_imagen()}')
                 print(f'Fecha de publicacion: {articulo.get_fechaPublicacion()}')
                 print('')
                 estado =  articulo.get_estado()
